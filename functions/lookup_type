@@ -1,0 +1,32 @@
+// This is your new function. To start, set the name and path on the left.
+exports.handler = function (context, event, callback) {
+  // The pre-initialized Twilio Client is available from the `context` object
+  const twilioClient = context.getTwilioClient();
+
+  // Query parameters or values sent in a POST body can be accessed from `event`
+  const to = event.To;
+  const lookType = event.Type;
+
+twilioClient.lookups.v2.phoneNumbers(to)
+  .fetch({fields: lookType})
+  .then((phoneNum) => {
+    if (lookType == 'validation' && phoneNum.valid == true){
+      return callback(null,'Phone Number: ' + phoneNum.phoneNumber + '\n Valid: ' + phoneNum.valid);
+    }else if (lookType == 'validation' && phoneNum.valid == false) {
+      return callback(null,'Phone Number: ' + phoneNum.phoneNumber + '\n Valid: ' + phoneNum.valid + '\n Validation Errors: ' + phoneNum.validationErrors);
+    }else if (lookType == 'line_type_intelligence') {
+      return callback(null,'Phone Number: ' + phoneNum.phoneNumber + '\n Line Type Intelligence: ' + '\n\t Mobile Network Code: ' + phoneNum.lineTypeIntelligence.mobile_network_code + '\n\t Carrier Name: ' + phoneNum.lineTypeIntelligence.carrier_name + '\n\t Error Code: ' + phoneNum.lineTypeIntelligence.error_code + '\n\t Mobile Country Code: ' + phoneNum.lineTypeIntelligence.mobile_country_code + '\n\t Line Type: ' + phoneNum.lineTypeIntelligence.type);
+    }else if (lookType == 'caller_name'){
+      return callback(null,'Phone Number: ' + phoneNum.phoneNumber + '\n Caller Information: ' + '\n\tCaller Name: ' + phoneNum.callerName.caller_name + '\n\tCaller Type: ' + phoneNum.callerName.caller_type + '\n\tError Code: ' + phoneNum.callerName.error_code);
+    } 
+    else{ 
+      return callback("lookupType" + lookType )
+    }
+  })
+.catch((error) => {
+    console.error(error);
+    return callback(error);
+  });       
+};
+
+
