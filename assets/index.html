@@ -379,8 +379,13 @@
             body: JSON.stringify({To: encode_toNumber, Type: lookupType})
         });        
         const info = await results.json();
-        const format = JSON.stringify(info, null, 2);
-        document.getElementById('lookupResults').innerHTML = "Results: " + format;         
+        let text = "<table border='1'>"
+            for (let x in info) {
+              text += "<tr>" + "<td>" + x + "</td><td>" + info[x] + "</td>" +" </tr>";
+            }
+            text += "</table>"
+            document.getElementById("lookupResults").innerHTML = text;
+       // document.getElementById('lookupResults').innerHTML = "Results: " + format;         
     }
 </script>
 <script>
@@ -404,7 +409,13 @@
         });        
         const info = await results.json();
         const format = JSON.stringify(info, null, 2);
-        document.getElementById('identityMatchResults').innerHTML = "Results: " + format;         
+        let text = "<table border='1'>"
+            for (let x in info) {
+              text += "<tr>" + "<td>" + x + "</td><td>" + info[x] + "</td>" +" </tr>";
+            }
+            text += "</table>"
+            document.getElementById("identityMatchResults").innerHTML = text;
+       // document.getElementById('identityMatchResults').innerHTML = "Results: " + format;         
     }
 </script>
 <script>
