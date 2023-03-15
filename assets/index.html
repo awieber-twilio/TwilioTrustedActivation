@@ -97,8 +97,8 @@
                     margin-left: 10px;
                     margin-right: 10px;"
             >Caller Name</a>
-        
                     </ol>
+                    <div id = lookupResults> </div>
                 </section>
                 <section>
                     <h2>This section will allow you to test our Twilio Safe List Feature</h2>
@@ -157,6 +157,7 @@
             >Remove Number</a>
         
                     </ol>
+                    <div id = safeListResults> </div>
                 </section>
                 
                 <section>
@@ -215,7 +216,7 @@
                     margin-right: 10px;"
             >Send as Whatsapp</a>
             
-            <button onclick="sendOtpFunction('sna')"
+            <!-- <button onclick="sendOtpFunction('sna')"
             style="
                     background-color: white;
                     color:  rgb(2, 99, 224);
@@ -227,8 +228,9 @@
                     padding: 6px 12px;
                     margin-left: 10px;
                     margin-right: 10px;"
-            >Send as SNA</a>
+            >Send as SNA</a> -->
         </div>
+        <div id = verifySendResults> </div>
                         <li>
                             Input the OTP Code you received.
                         </li>
@@ -247,7 +249,8 @@
                         margin-left: 10px;
                         margin-right: 10px;"
             >Verify</a>
-            <button onclick="verifySNAFunction()"
+            
+            <!-- <button onclick="verifySNAFunction()"
                 style="
                         background-color: white;
                         color:  rgb(2, 99, 224);
@@ -259,13 +262,14 @@
                         padding: 6px 12px;
                         margin-left: 10px;
                         margin-right: 10px;"
-            >Verify SNA*</a>
+            >Verify SNA*</a> -->
         </div>
                     </ol>
+                    <div id = verifyOTPResults> </div>
                 </section>
-                        <p>
+                        <!-- <p>
                             * Verify SNA Live Number Test - You can only register one number per account at a time, so this will not work for you. Get the code <a href="https://github.com/nataliehuynh/TwilioTrustedActivation">here</a> and build your own instance
-                        </p>
+                        </p> -->
 
         </main>
         <footer>
@@ -273,26 +277,44 @@
         </footer>
 
 <script>
-    function sendOtpFunction(channel){
+    async function sendOtpFunction(channel){
         var toNumber = document.getElementById("twilio-to-phone").value;
         var encode_toNumber = encodeURIComponent (toNumber);
-        var urlSend = context.DOMAIN_NAME + "/send_otp?To=" + encode_toNumber + "&Channel=" + channel;
-        window.open(urlSend, '_blank');
-        //window.alert(urlSend, '_blank');
-        //window.location.href=urlSend;
+        const results =  await fetch('/send_otp', {
+            method: 'POST',
+            headers: {
+                Accept: 'application/json',
+                'Content-Type': 'application/json',
+            },
+            body: JSON.stringify({To: encode_toNumber, Channel: channel})
+        });   
+        const info = await results.json();
+        console.log(info);
+        const format = JSON.stringify(info, null, 2);
+        document.getElementById('verifySendResults').innerHTML = format;  
     }
 </script>
 <script>
-    function verifyOtpFunction(){
+    async function verifyOtpFunction(){
         var toNumber = document.getElementById("twilio-to-phone").value;
         var encode_toNumber = encodeURIComponent (toNumber);
         var otpCode = document.getElementById("twilio-otp").value;
-        var urlSend = "https://CHANGE_ME.twil.io/verify_otp?To=" + encode_toNumber + "&Code=" + otpCode;
-        window.open(urlSend, '_blank');
-        //window.location.href=urlSend;
+        const results =  await fetch('/verify_otp', {
+            method: 'POST',
+            headers: {
+                Accept: 'application/json',
+                'Content-Type': 'application/json',
+            },
+            body: JSON.stringify({To: encode_toNumber, Code: otpCode})
+        }); 
+        const info = await results.json();
+        const format = JSON.stringify(info, null, 2);
+        document.getElementById('verifyOTPResults').innerHTML = format;    
+       
     }
 </script>
 <script>
+    //this doesn't work right now
     function verifySNAFunction(){
         var toNumber = document.getElementById("twilio-to-phone").value;
         var encode_toNumber = encodeURIComponent (toNumber);
@@ -303,25 +325,41 @@
     }
 </script>
 <script>
-    function lookupFunction(lookupType){
+    async function lookupFunction(lookupType){
         var toNumber = document.getElementById("twilio-lookup-phone").value;
-        var encode_toNumber = encodeURIComponent (toNumber);
         var otpCode = document.getElementById("twilio-otp").value;
-        var urlSend = context.DOMAIN_NAME + "/lookup_type?To=" + encode_toNumber + "&Type=" + lookupType;
-        window.open(urlSend, '_blank');
-        //window.location.href=urlSend;
+        var encode_toNumber = encodeURIComponent (toNumber);
+        const results =  await fetch('/lookup_type', {
+            method: 'POST',
+            headers: {
+                Accept: 'application/json',
+                'Content-Type': 'application/json',
+            },
+            body: JSON.stringify({To: encode_toNumber, Type: lookupType})
+        });        
+        const info = await results.json();
+        const format = JSON.stringify(info, null, 2);
+        document.getElementById('lookupResults').innerHTML = "Results: " + format;         
     }
 </script>
 <script>
-    function safelistFunction(safelistAction){
+    async function safelistFunction(safelistAction){
         var toNumber = document.getElementById("twilio-safelist-phone").value;
         var encode_toNumber = encodeURIComponent (toNumber);
         var otpCode = document.getElementById("twilio-otp").value;
-        var urlSend =  context.DOMAIN_NAME + "/safe_list?To=" + encode_toNumber + "&Action=" + safelistAction;
-        window.open(urlSend, '_blank');
-        //window.location.href=urlSend;
+        const results =  await fetch('/safe_list', {
+            method: 'POST',
+            headers: {
+                Accept: 'application/json',
+                'Content-Type': 'application/json',
+            },
+            body: JSON.stringify({To: encode_toNumber, Action: safelistAction})
+        });   
+        const info = await results.json();
+        const format = JSON.stringify(info, null, 2);
+        document.getElementById('safeListResults').innerHTML = "Results: " + format;  
     }
-</script
+</script>
 
     </body>
 </html>

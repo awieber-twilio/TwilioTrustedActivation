@@ -5,8 +5,10 @@ exports.handler = function (context, event, callback) {
   const twilioClient = context.getTwilioClient();
 
   // Query parameters or values sent in a POST body can be accessed from `event`
-  const to = event.To;
+  const to = decodeURIComponent(event.To);
   const code = event.Code;
+  console.log(to);
+  console.log(code);
 
 twilioClient.verify.services(context.VERIFY_SID)
   .verificationChecks
@@ -14,12 +16,12 @@ twilioClient.verify.services(context.VERIFY_SID)
   .then((verification_check) => {
     console.log(verification_check.status);
     if (verification_check.status == "approved")
-      return callback(null, "OTP Verified");
+      return callback(null, {Status: "OTP Verified"});
     if (verification_check.status == "pending")
-      return callback(null, "OTP Not Verified");
+      return callback(null, {Status: "OTP Not Verified"});
   })
   .catch((error) => {
     console.error(error);
-    return callback(error);
+    return callback(null, {Error: error});
   });       
 };

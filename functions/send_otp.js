@@ -5,7 +5,7 @@ exports.handler = function (context, event, callback) {
   const twilioClient = context.getTwilioClient();
 
   // Query parameters or values sent in a POST body can be accessed from `event`
-  const to = event.To;
+  const to = decodeURIComponent(event.To);
   //console.log(event.To);
   const channel = event.Channel;
 
@@ -18,13 +18,13 @@ exports.handler = function (context, event, callback) {
     .then((verification) => {
       console.log(verification.lookup);
       if (channel == 'sna'){
-        return callback(verification.sna.url)
+        return callback(null, {"url": verification.sna.url})
       } else {
-      return callback(null, `Success OTP Sent! ` + to);
+      return callback(null, {Status: "Success"});
       }
     })
     .catch((error) => {
       console.error(error);
-      return callback(error);
+      return callback(null, {"Error": error});
     });      
 };
