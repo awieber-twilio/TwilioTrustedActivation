@@ -45,11 +45,11 @@
                 <section>
                     <h2>This section will allow you to test our Twilio Lookup Features</h2>
                     <p>
-                        This app will provide you with lookup information
+                        This API will provide you with lookup information
                     </p>
                     <ol class="steps">
                         <li>
-                            Input your phone number to lookup.
+                            Input your phone number in E.164 format to lookup.
                         </li>
                         <input type="text" id="twilio-lookup-phone" class="phone-number" onfocus="this.value=''">
                         <li>
@@ -101,13 +101,54 @@
                     <div id = lookupResults> </div>
                 </section>
                 <section>
+                    <h2>This section will allow you to test our Twilio Lookup Identity Match Feature</h2>
+                    <p>
+                        This API will allow you to get confirmation of ownership for a mobile phone number by comparing user-provided information against authoritative data sources.
+                        You may fill in some or all fields for comparison.
+                    </p>
+                    <ul>
+                        <li>Input your phone number in E.164 format.</li>
+                        <input type="text" id="idmatch-phone" class="phone-number"  onfocus="this.value=''">
+                        <li>Input your first name.</li>
+                        <input type="text" id="idmatch-firstname"  onfocus="this.value=''">
+                        <li>Input your last name.</li>
+                        <input type="text" id="idmatch-lastname"  onfocus="this.value=''">
+                        <li>Input your address.</li>
+                        <input type="text" id="idmatch-address"  onfocus="this.value=''">
+                        <li>Input your city.</li>
+                        <input type="text" id="idmatch-city"  onfocus="this.value=''">
+                        <li>Input your state.</li>
+                        <input type="text" id="idmatch-state"  onfocus="this.value=''">
+                        <li>Input your postal code.</li>
+                        <input type="text" id="idmatch-postalcode"  onfocus="this.value=''">
+                        <li>Input your date of birth [YYYYMMDD].</li>
+                        <input type="text" id="idmatch-dob"  onfocus="this.value=''">
+                    </ul>
+                    <div style="display:flex; justify-content:center; padding:1rem 0;">
+                        <button onclick="identityMatchFunction()"
+                            style="
+                                    background-color: white;
+                                    color:  rgb(2, 99, 224);
+                                    border: 1px solid rgb(2, 99, 224);
+                                    border-radius: 4px;
+                                    font-size: 14px;
+                                    font-weight: 600;
+                                    text-decoration: none;
+                                    padding: 6px 12px;
+                                    margin-left: 10px;
+                                    margin-right: 10px;"
+                        >Check Matches</a>
+                        
+                </section>
+                <div id = identityMatchResults></div>
+                <section>
                     <h2>This section will allow you to test our Twilio Safe List Feature</h2>
                     <p>
-                        This app will allow you to add/remove/check a phone number against a Safe List
+                        This API will allow you to add/remove/check a phone number against a Safe List
                     </p>
                     <ol class="steps">
                         <li>
-                            Input your phone number.
+                            Input your phone number in E.164 format.
                         </li>
                         <input type="text" id="twilio-safelist-phone" class="phone-number"  onfocus="this.value=''">
                         <li>
@@ -163,11 +204,11 @@
                 <section>
                     <h2>This section will allow you to test our Twilio Verify Features</h2>
                     <p>
-                        This app will let you send a verification code via SMS, Voice or Whatsapp!
+                        This API will let you send a verification code via SMS, Voice or Whatsapp!
                     </p>
                     <ol class="steps">
                         <li>
-                            Input your phone number to receive the OTP.
+                            Input your phone number in E.164 format to receive the OTP.
                         </li>
                         <input type="text" id="twilio-to-phone" class="phone-number"  onfocus="this.value=''">
                         <li>
@@ -340,6 +381,30 @@
         const info = await results.json();
         const format = JSON.stringify(info, null, 2);
         document.getElementById('lookupResults').innerHTML = "Results: " + format;         
+    }
+</script>
+<script>
+    async function identityMatchFunction(lookupType){
+        var toNumber = document.getElementById("idmatch-phone").value;
+        var firstName = document.getElementById("idmatch-firstname").value;
+        var lastName = document.getElementById("idmatch-lastname").value;
+        var address = document.getElementById("idmatch-address").value;
+        var city = document.getElementById("idmatch-city").value;
+        var state = document.getElementById("idmatch-state").value;
+        var postalCode = document.getElementById("idmatch-postalcode").value;
+        var DOB = document.getElementById("idmatch-dob").value;
+        var encode_toNumber = encodeURIComponent (toNumber);
+        const results =  await fetch('/identity_match', {
+            method: 'POST',
+            headers: {
+                Accept: 'application/json',
+                'Content-Type': 'application/json',
+            },
+            body: JSON.stringify({To: encode_toNumber, firstName: firstName, lastName: lastName, address: address, city: city, state: state, postalCode: postalCode, DOB: DOB })
+        });        
+        const info = await results.json();
+        const format = JSON.stringify(info, null, 2);
+        document.getElementById('identityMatchResults').innerHTML = "Results: " + format;         
     }
 </script>
 <script>

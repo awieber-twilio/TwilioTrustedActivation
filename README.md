@@ -29,7 +29,9 @@ SMS pumping fraud continues to be a problem for all businesses that allow their 
 * [Twilio Verify](https://www.twilio.com/verify)
 *  [Twilio Lookup](https://www.twilio.com/en-us/trusted-activation/lookup)
 
-## Getting Started
+Add an .env file with VERIFY_SID. 
+Then run `twilio serverless:deploy` in the command line.
+<!-- ## Getting Started
 1. Create a [Twilio Service](https://console.twilio.com/us1/develop/functions/services)
 <img width="1406" alt="Screen Shot 1" src="https://user-images.githubusercontent.com/587503/219128424-6192a1b7-c18a-49c7-8969-dfc63604f832.png">
 
@@ -54,7 +56,7 @@ SMS pumping fraud continues to be a problem for all businesses that allow their 
 9. Open Browser and go to "https://projectName-XXXX.twil.io/index.html"
 <img width="1406" alt="Screen Shot 4" src="https://user-images.githubusercontent.com/587503/219133969-07a03440-309a-4524-8d48-c9cb7b951888.png">
 
-10. Project Loaded, Have Fun!
+10. Project Loaded, Have Fun! -->
 
 ## Demo Script
 1. Input phone number and try the 3 different lookup type and see the info it displays
