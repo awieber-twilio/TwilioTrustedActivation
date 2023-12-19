@@ -6,8 +6,9 @@ exports.handler = function (context, event, callback) {
 
   // Query parameters or values sent in a POST body can be accessed from `event`
   const to = decodeURIComponent(event.To);
+ 
   const code = event.Code;
-  console.log(to);
+
   console.log(code);
 
 twilioClient.verify.services(context.VERIFY_SID)

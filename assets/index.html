@@ -4,7 +4,7 @@
         <meta charset="utf-8">
         <meta name="viewport" content="width=device-width, initial-scale=1.0">
         <meta http-equiv="x-ua-compatible" content="ie=edge">
-        <title>Get started with your Twilio Functions!</title>
+        <title>Try out Twilio!</title>
 
         <link rel="icon" href="https://twilio-labs.github.io/function-templates/static/v1/favicon.ico">
         <link rel="stylesheet" href="https://twilio-labs.github.io/function-templates/static/v1/ce-paste-theme.css">
@@ -39,13 +39,27 @@
                     <img src="https://twilio-labs.github.io/function-templates/static/v1/success.svg" />
                     <div>
                         <p>Welcome!</p>
-                        <p>Please have fun with our Trusted Activation</p>
+                        <p>Please have fun playing with some Twilio APIs!</p>
                     </div>
                 </h1>
+                <section> 
+                    <h2>Table of Contents</h2>
+                <ul>
+                    <li><a href="#lookup">Twilio Lookup</a></li>
+                    <li><a href="#lookup-idmatch">Twilio Lookup Identity Match</a></li>
+                    <li><a href="#verify">Twilio Verify</a></li>
+                    <li><a href="#verify-safelist">Twilio Verify Fraud Guard & Safe List</a></li>
+                    <li><a href="#verify-sna">Twilio Verify Silent Network Authentication</a></li>
+                    <li><a href="#prog-sms">Twilio Programmable SMS</a></li>
+                    <li><a href="#studio">Twilio Studio</a></li>
+                    <li><a href="#email">Twilio SendGrid Email API</a></li>
+
+                </ul>
+                </section>
                 <section>
-                    <h2>This section will allow you to test our Twilio Lookup Features</h2>
+                    <h2 id="lookup">This section will allow you to test our Twilio Lookup Features</h2>
                     <p>
-                        This API will provide you with lookup information
+                        This API allows you to query information on a phone number so that you can make a trusted interaction with your user. <a href = "https://www.twilio.com/docs/lookup/v2-api" target="_blank">Learn more.</a>
                     </p>
                     <ol class="steps">
                         <li>
@@ -101,10 +115,10 @@
                     <div id = lookupResults> </div>
                 </section>
                 <section>
-                    <h2>This section will allow you to test our Twilio Lookup Identity Match Feature</h2>
+                    <h2 id="lookup-idmatch">This section will allow you to test our Twilio Lookup Identity Match Feature</h2>
                     <p>
                         This API will allow you to get confirmation of ownership for a mobile phone number by comparing user-provided information against authoritative data sources.
-                        You may fill in some or all fields for comparison.
+                        You may fill in some or all fields for comparison. <a href = "https://www.twilio.com/docs/lookup/v2-api/identity-match" target="_blank">Learn More!</a> 
                     </p>
                     <ul>
                         <li>Input your phone number in E.164 format.</li>
@@ -141,70 +155,11 @@
                         
                 </section>
                 <div id = identityMatchResults></div>
-                <section>
-                    <h2>This section will allow you to test our Twilio Safe List Feature</h2>
-                    <p>
-                        This API will allow you to add/remove/check a phone number against a Safe List
-                    </p>
-                    <ol class="steps">
-                        <li>
-                            Input your phone number in E.164 format.
-                        </li>
-                        <input type="text" id="twilio-safelist-phone" class="phone-number"  onfocus="this.value=''">
-                        <li>
-                            Select which action you would like to perform
-                        </li>
-        <div style="display:flex; justify-content:center; padding:1rem 0;">
-            <button onclick="safelistFunction('check')"
-                style="
-                        background-color: white;
-                        color:  rgb(2, 99, 224);
-                        border: 1px solid rgb(2, 99, 224);
-                        border-radius: 4px;
-                        font-size: 14px;
-                        font-weight: 600;
-                        text-decoration: none;
-                        padding: 6px 12px;
-                        margin-left: 10px;
-                        margin-right: 10px;"
-            >Check Number</a>
-            
-            <button onclick="safelistFunction('add')"
-            style="
-                    background-color: white;
-                    color:  rgb(2, 99, 224);
-                    border: 1px solid rgb(2, 99, 224);
-                    border-radius: 4px;
-                    font-size: 14px;
-                    font-weight: 600;
-                    text-decoration: none;
-                    padding: 6px 12px;
-                    margin-left: 10px;
-                    margin-right: 10px;"
-            >Add Number</a>
-
-            <button onclick="safelistFunction('remove')"
-            style="
-                    background-color: white;
-                    color:  rgb(2, 99, 224);
-                    border: 1px solid rgb(2, 99, 224);
-                    border-radius: 4px;
-                    font-size: 14px;
-                    font-weight: 600;
-                    text-decoration: none;
-                    padding: 6px 12px;
-                    margin-left: 10px;
-                    margin-right: 10px;"
-            >Remove Number</a>
-        
-                    </ol>
-                    <div id = safeListResults> </div>
-                </section>
                 
                 <section>
-                    <h2>This section will allow you to test our Twilio Verify Features</h2>
+                    <h2 id="verify">This section will allow you to test our Twilio Verify Features</h2>
                     <p>
-                        This API will let you send a verification code via SMS, Voice or Whatsapp!
+                        This API will let you send a user verification code (OTP) via SMS, Voice or Whatsapp! <a href = "https://www.twilio.com/docs/verify/api" target="_blank">Learn More!</a> 
                     </p>
                     <ol class="steps">
                         <li>
@@ -308,9 +263,189 @@
                     </ol>
                     <div id = verifyOTPResults> </div>
                 </section>
+                <section>
+                    <h2 id="verify-safelist">This section will allow you to test our Twilio Safe List Feature</h2>
+                    <p>
+                        This API will allow you to add/remove/check a phone number against a Safe List. Verify Fraud Guard prevents SMS related fraud by monitoring your traffic and blocking suspicious destinations. The Safe List is an "allow-list" of confirmed customer phone numbers who won't be blocked.
+                        <a href = "https://www.twilio.com/docs/verify/preventing-toll-fraud/sms-fraud-guard" target="_blank"> Learn more about Fraud Guard! </a> <p> </p>
+                        <a href = "https://www.twilio.com/docs/verify/api/safe-list" target="_blank"> Learn more about the Safe List! </a>
+
+                    </p>
+                    <ol class="steps">
+                        <li>
+                            Input your phone number in E.164 format.
+                        </li>
+                        <input type="text" id="twilio-safelist-phone" class="phone-number"  onfocus="this.value=''">
+                        <li>
+                            Select which action you would like to perform
+                        </li>
+        <div style="display:flex; justify-content:center; padding:1rem 0;">
+            <button onclick="safelistFunction('check')"
+                style="
+                        background-color: white;
+                        color:  rgb(2, 99, 224);
+                        border: 1px solid rgb(2, 99, 224);
+                        border-radius: 4px;
+                        font-size: 14px;
+                        font-weight: 600;
+                        text-decoration: none;
+                        padding: 6px 12px;
+                        margin-left: 10px;
+                        margin-right: 10px;"
+            >Check Number</a>
+            
+            <button onclick="safelistFunction('add')"
+            style="
+                    background-color: white;
+                    color:  rgb(2, 99, 224);
+                    border: 1px solid rgb(2, 99, 224);
+                    border-radius: 4px;
+                    font-size: 14px;
+                    font-weight: 600;
+                    text-decoration: none;
+                    padding: 6px 12px;
+                    margin-left: 10px;
+                    margin-right: 10px;"
+            >Add Number</a>
+
+            <button onclick="safelistFunction('remove')"
+            style="
+                    background-color: white;
+                    color:  rgb(2, 99, 224);
+                    border: 1px solid rgb(2, 99, 224);
+                    border-radius: 4px;
+                    font-size: 14px;
+                    font-weight: 600;
+                    text-decoration: none;
+                    padding: 6px 12px;
+                    margin-left: 10px;
+                    margin-right: 10px;"
+            >Remove Number</a>
+        
+                    </ol>
+                    <div id = safeListResults> </div>
+                </section>
+                <section>
+                    <h2 id="verify-sna">This section will let you watch Verify Silent Network Authentication in action.</h2>
+                    <ol > 
+                            <b>Verify Silent Network Auth:</b> Silent Network Auth (SNA) is the next generation SIM-based authentication method that confirms phone number possession in real-time without compromising security.
+                            Watch a video showing the enhanced SNA experience compared to traditional SMS OTPs <a href="https://assets.cdn.prod.twilio.com/media/OWLMart_Login_SNA_SMS_Side_by_Side.mp4" target="_blank">here.</a>
+                            
+                         <div style="display:flex; justify-content:center; padding:1rem 0;">
+        
+                    </ol>
+            
+                </section>
                         <!-- <p>
                             * Verify SNA Live Number Test - You can only register one number per account at a time, so this will not work for you. Get the code <a href="https://github.com/nataliehuynh/TwilioTrustedActivation">here</a> and build your own instance
                         </p> -->
+                <section>
+                    <h2 id="prog-sms">This section will allow you to test Twilio Programmable SMS</h2>
+                    <p>
+                        Twilio makes sending SMS easy. 
+                        <a href = "https://www.twilio.com/docs/sms" target="_blank"> Learn more! </a>
+                        <!-- Twilio Programmable Voice helps you make, receive, and monitor calls around the world.
+                        <a href = "https://www.twilio.com/docs/voice/api" target="_blank"> Learn more! </a> -->
+
+                    </p>
+                    <ol class="steps">
+                        <li>
+                            Input your phone number in E.164 format.
+                        </li>
+                        <input type="text" id="sms-phone" class="phone-number"  onfocus="this.value=''">
+                        <li>
+                            Enter your message. 
+                        </li>
+                        <textarea rows="4" cols="80" id="twilio-message" > </textarea>
+        <div style="display:flex; justify-content:center; padding:1rem 0;">
+            
+            
+            <button onclick="sendSMS()"
+        style="
+                background-color: white;
+                color:  rgb(2, 99, 224);
+                border: 1px solid rgb(2, 99, 224);
+                border-radius: 4px;
+                font-size: 14px;
+                font-weight: 600;
+                text-decoration: none;
+                padding: 6px 12px;
+                margin-left: 10px;
+                margin-right: 10px;"
+    >Send SMS</a>
+    
+    <!-- <button onclick="sendVoice()"
+    style="
+            background-color: white;
+            color:  rgb(2, 99, 224);
+            border: 1px solid rgb(2, 99, 224);
+            border-radius: 4px;
+            font-size: 14px;
+            font-weight: 600;
+            text-decoration: none;
+            padding: 6px 12px;
+            margin-left: 10px;
+            margin-right: 10px;"
+    >Send Voice Message</a> -->
+
+        
+                    </ol>
+                    <div id = messageSendResults> </div>
+                </section>
+                        
+                <section>
+                    <h2 id="studio">This section will let you experience Twilio Studio in action.</h2>
+                    
+                    <ol >
+                                            
+                        <b>Twilio Studio:</b> Studio is a low-code/no-code application builder with drag and drop widgets to build voice, messaging, and communications apps.
+                            <p></p>Call or text <b>+1(218)-277-7990</b> to witness Twilio Studio in action! 
+                    
+                        <div style="display:flex; justify-content:center; padding:1rem 0;">
+        
+                    </ol>
+                </section>
+                <section>
+                    <h2 id="email">This section will allow you to test Twilio SendGrid Email API</h2>
+                    <p>
+                        Twilio SendGrid is a leader in trusted email delivery, processing over 130 billion emails per month. 
+                        <a href = "https://www.twilio.com/en-us/sendgrid/email-api" target="_blank"> Learn more! </a>
+                        <!-- Twilio Programmable Voice helps you make, receive, and monitor calls around the world.
+                        <a href = "https://www.twilio.com/docs/voice/api" target="_blank"> Learn more! </a> -->
+
+                    </p>
+                    <ol class="steps">
+                        <li>
+                            Input your email address.
+                        </li>
+                        <input type="text" id="email-address"  onfocus="this.value=''">
+                        <li>
+                            Enter your subject line. 
+                        </li>
+                        <input type="text" id="email-subject"  onfocus="this.value=''">
+                        <li>
+                            Enter your email body. 
+                        </li>
+                        <textarea rows="4" cols="80" id="email-body" > </textarea>
+        <div style="display:flex; justify-content:center; padding:1rem 0;">
+            
+            
+            <button onclick="sendEmail()"
+        style="
+                background-color: white;
+                color:  rgb(2, 99, 224);
+                border: 1px solid rgb(2, 99, 224);
+                border-radius: 4px;
+                font-size: 14px;
+                font-weight: 600;
+                text-decoration: none;
+                padding: 6px 12px;
+                margin-left: 10px;
+                margin-right: 10px;"
+    >Send Email</a>        
+                    </ol>
+                    <div id = emailSendResults> </div>
+                </section>
 
         </main>
         <footer>
@@ -334,8 +469,6 @@
         const format = JSON.stringify(info, null, 2);
         document.getElementById('verifySendResults').innerHTML = format;  
     }
-</script>
-<script>
     async function verifyOtpFunction(){
         var toNumber = document.getElementById("twilio-to-phone").value;
         var encode_toNumber = encodeURIComponent (toNumber);
@@ -353,19 +486,17 @@
         document.getElementById('verifyOTPResults').innerHTML = format;    
        
     }
-</script>
-<script>
+
     //this doesn't work right now
     function verifySNAFunction(){
         var toNumber = document.getElementById("twilio-to-phone").value;
         var encode_toNumber = encodeURIComponent (toNumber);
         var otpCode = document.getElementById("twilio-otp").value;
-        var urlSend = context.DOMAIN_NAME + "/verify_sna?To=" + encode_toNumber;
+        //var urlSend = context.DOMAIN_NAME + "/verify_sna?To=" + encode_toNumber;
         window.open(urlSend, '_blank');
         //window.location.href=urlSend;
     }
-</script>
-<script>
+
     async function lookupFunction(lookupType){
         var toNumber = document.getElementById("twilio-lookup-phone").value;
         var otpCode = document.getElementById("twilio-otp").value;
@@ -387,8 +518,7 @@
             document.getElementById("lookupResults").innerHTML = text;
        // document.getElementById('lookupResults').innerHTML = "Results: " + format;         
     }
-</script>
-<script>
+
     async function identityMatchFunction(lookupType){
         var toNumber = document.getElementById("idmatch-phone").value;
         var firstName = document.getElementById("idmatch-firstname").value;
@@ -417,8 +547,7 @@
             document.getElementById("identityMatchResults").innerHTML = text;
        // document.getElementById('identityMatchResults').innerHTML = "Results: " + format;         
     }
-</script>
-<script>
+
     async function safelistFunction(safelistAction){
         var toNumber = document.getElementById("twilio-safelist-phone").value;
         var encode_toNumber = encodeURIComponent (toNumber);
@@ -435,7 +564,48 @@
         const format = JSON.stringify(info, null, 2);
         document.getElementById('safeListResults').innerHTML = "Results: " + format;  
     }
+
+    async function sendSMS(){
+        var toNumber = document.getElementById("sms-phone").value;
+        var message = document.getElementById("twilio-message").value;
+        var encode_toNumber = encodeURIComponent (toNumber);
+        const results =  await fetch('/send_sms', {
+            method: 'POST',
+            headers: {
+                Accept: 'application/json',
+                'Content-Type': 'application/json',
+            },
+            body: JSON.stringify({To: encode_toNumber, message: message})
+        });   
+        const info = await results.json();
+        console.log(info);
+        const format = JSON.stringify(info, null, 2);
+        document.getElementById('MessageSendResults').innerHTML = format; 
+    }
+
+    async function sendEmail(){
+        var to = document.getElementById("email-address").value;
+        var subject = document.getElementById("email-subject").value;
+        var body = document.getElementById("email-body").value;
+
+        const results =  await fetch('/send_email', {
+            method: 'POST',
+            headers: {
+                Accept: 'application/json',
+                'Content-Type': 'application/json',
+            },
+            body: JSON.stringify({to: to, subject: subject, body: body})
+        });   
+        const info = await results.json();
+        console.log(info);
+        const format = JSON.stringify(info, null, 2);
+        document.getElementById('emailSendResults').innerHTML = format; 
+    }
+
+
 </script>
+
+
 
     </body>
 </html>
